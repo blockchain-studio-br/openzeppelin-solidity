@@ -349,7 +349,7 @@ contract ERC777 is IERC777, IERC20 {
         bytes memory operatorData,
         bool requireReceptionAck
     )
-        private
+        internal
     {
         require(from != address(0), "ERC777: send from the zero address");
         require(to != address(0), "ERC777: send to the zero address");
@@ -376,7 +376,7 @@ contract ERC777 is IERC777, IERC20 {
         bytes memory data,
         bytes memory operatorData
     )
-        private
+        internal
     {
         require(from != address(0), "ERC777: burn from the zero address");
 
@@ -398,7 +398,7 @@ contract ERC777 is IERC777, IERC20 {
         bytes memory userData,
         bytes memory operatorData
     )
-        private
+        internal
     {
         _balances[from] = _balances[from].sub(amount);
         _balances[to] = _balances[to].add(amount);
@@ -407,7 +407,7 @@ contract ERC777 is IERC777, IERC20 {
         emit Transfer(from, to, amount);
     }
 
-    function _approve(address holder, address spender, uint256 value) private {
+    function _approve(address holder, address spender, uint256 value) internal {
         // TODO: restore this require statement if this function becomes internal, or is called at a new callsite. It is
         // currently unnecessary.
         //require(holder != address(0), "ERC777: approve from the zero address");
@@ -434,7 +434,7 @@ contract ERC777 is IERC777, IERC20 {
         bytes memory userData,
         bytes memory operatorData
     )
-        private
+        internal
     {
         address implementer = _erc1820.getInterfaceImplementer(from, TOKENS_SENDER_INTERFACE_HASH);
         if (implementer != address(0)) {
@@ -462,7 +462,7 @@ contract ERC777 is IERC777, IERC20 {
         bytes memory operatorData,
         bool requireReceptionAck
     )
-        private
+        internal
     {
         address implementer = _erc1820.getInterfaceImplementer(to, TOKENS_RECIPIENT_INTERFACE_HASH);
         if (implementer != address(0)) {
